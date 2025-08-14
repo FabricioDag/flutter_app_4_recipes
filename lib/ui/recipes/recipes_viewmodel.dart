@@ -3,7 +3,7 @@ import 'package:app4_receitas/data/repositories/recipe_repository.dart';
 import 'package:app4_receitas/di/service_locator.dart';
 import 'package:get/get.dart';
 
-class RecipesViewModel extends GetxController{
+class RecipesViewModel extends GetxController {
   final _repository = getIt<RecipeRepository>();
 
   final RxList<Recipe> _recipes = <Recipe>[].obs;
@@ -26,5 +26,4 @@ class RecipesViewModel extends GetxController{
       _isLoading.value = false;
     }
   }
-
 }

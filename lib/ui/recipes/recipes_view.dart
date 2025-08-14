@@ -13,7 +13,6 @@ class RecipesView extends StatefulWidget {
 }
 
 class _RecipesViewState extends State<RecipesView> {
-
   final viewModel = getIt<RecipesViewModel>();
 
   @override
@@ -65,8 +64,7 @@ class _RecipesViewState extends State<RecipesView> {
         child: Column(
           children: [
             Expanded(
-              child:
-              viewModel.recipes.isNotEmpty
+              child: viewModel.recipes.isNotEmpty
                   ? Center(
                       child: Column(
                         children: [
@@ -165,8 +163,7 @@ class _RecipesViewState extends State<RecipesView> {
                         ],
                       ),
                     )
-                  :
-                  Center(
+                  : Center(
                       child: Column(
                         children: [
                           const SizedBox(height: 64),

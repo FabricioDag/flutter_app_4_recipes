@@ -26,8 +26,9 @@ class FavRecipesViewModel extends GetxController {
       final favIds = prefs.getStringList(_prefsKey) ?? [];
 
       final allRecipes = await _repository.getRecipes();
-      _favRecipes.value =
-          allRecipes.where((r) => favIds.contains(r.id.toString())).toList();
+      _favRecipes.value = allRecipes
+          .where((r) => favIds.contains(r.id.toString()))
+          .toList();
     } catch (e) {
       _errorMessage.value = 'Falha ao buscar favoritos: $e';
     } finally {
