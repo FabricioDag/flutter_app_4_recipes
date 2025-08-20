@@ -11,8 +11,26 @@ class AuthView extends StatefulWidget {
   State<AuthView> createState() => _AuthViewState();
 }
 
-class _AuthViewState extends State<AuthView> {
+class _AuthViewState extends State<AuthView>
+    with SingleTickerProviderStateMixin {
   final viewModel = getIt<AuthViewModel>();
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+    // retorna valores interpolados de 0 a 1
+
+    _animation = Tween(begin: 50.0, end: 150.0).animate(_animationController);
+
+    _animationController.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +75,13 @@ class _AuthViewState extends State<AuthView> {
   Widget _buildHeader() {
     return Column(
       children: [
-        Icon(
-          Icons.restaurant_menu,
-          size: 80,
-          color: Theme.of(context).colorScheme.primary,
+        SizedBox(
+          height: 200,
+          child: Icon(
+            Icons.restaurant_menu,
+            color: Theme.of(context).colorScheme.primary,
+            size: _animation.value,
+          ),
         ),
         const SizedBox(height: 16),
         Text(
@@ -77,6 +98,25 @@ class _AuthViewState extends State<AuthView> {
         ),
       ],
     );
+  }
+
+  Widget _animatedLogo({required AnimationController controller}){
+    return AnimatedBuilder(animation: controller, builder: (context, child){
+      final sizeTween = Tween(
+        begin: 50.0,
+        end:200.0
+      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+
+      return SizedBox(
+        height: 200,
+        child: Icon(
+          Icon.restaurant_menu,
+          size: sizeTween.value,
+          
+        ),
+      )
+    })
+
   }
 
   Widget _buildEmailField() {

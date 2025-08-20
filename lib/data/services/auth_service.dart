@@ -8,6 +8,9 @@ class AuthService {
 
   User? get currentUser => _supabaseClient.auth.currentUser;
 
+  Stream<AuthState> get authStateChanges =>
+      _supabaseClient.auth.onAuthStateChange;
+
   Future<Either<AppError, AuthResponse>> signInWithPassword({
     required String email,
     required String password,
@@ -83,6 +86,17 @@ class AuthService {
       }
     } catch (e) {
       return Left(AppError('Erro inesperado ao registrar usuário', e));
+    }
+  }
+
+  Future<Either<AppError, void>> signOut() async {
+    try {
+      await _supabaseClient.auth.signOut();
+      return Right(null);
+    } on AuthException catch (e) {
+      return Left(AppError('Erro ao sair', e));
+    } catch (e) {
+      return Left(AppError('Erro inesperado ao sair', e));
     }
   }
 }

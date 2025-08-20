@@ -118,6 +118,7 @@ class AuthViewModel extends GetxController {
       },
       (right) {
         debugPrint("Usuário registrado com sucesso: ${right.email}");
+        _isLoginMode.value = true;
         _clearFields();
       },
     );
