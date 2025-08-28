@@ -1,0 +1,6 @@
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-location-file: app_localization.dart
+
+# run: flutter gen-l10n
+# This generates app_localization files

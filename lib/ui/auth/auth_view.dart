@@ -15,7 +15,7 @@ class _AuthViewState extends State<AuthView>
     with SingleTickerProviderStateMixin {
   final viewModel = getIt<AuthViewModel>();
   late AnimationController _animationController;
-  late Animation<double> _animation;
+  // late Animation<double> _animation; unnused
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _AuthViewState extends State<AuthView>
     );
     // retorna valores interpolados de 0 a 1
 
-    _animation = Tween(begin: 50.0, end: 150.0).animate(_animationController);
+    // _animation = Tween(begin: 50.0, end: 150.0).animate(_animationController);
 
     _animationController.forward();
   }
@@ -75,14 +75,7 @@ class _AuthViewState extends State<AuthView>
   Widget _buildHeader() {
     return Column(
       children: [
-        SizedBox(
-          height: 200,
-          child: Icon(
-            Icons.restaurant_menu,
-            color: Theme.of(context).colorScheme.primary,
-            size: _animation.value,
-          ),
-        ),
+        _animatedLogo(controller: _animationController),
         const SizedBox(height: 16),
         Text(
           'Eu Amo Cozinhar',
@@ -100,27 +93,26 @@ class _AuthViewState extends State<AuthView>
     );
   }
 
-  Widget _animatedLogo({required AnimationController controller}){
-    return AnimatedBuilder(animation: controller, builder: (context, child){
-      final sizeTween = Tween(
-        begin: 50.0,
-        end:200.0
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+  Widget _animatedLogo({required AnimationController controller}) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, child) {
+        final sizeTween = Tween(
+          begin: 50.0,
+          end: 200.0,
+        ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
 
-      return SizedBox(
-        height: 200,
-        child: Icon(
-          Icon.restaurant_menu,
-          size: sizeTween.value,
-          
-        ),
-      )
-    })
-
+        return SizedBox(
+          height: 200,
+          child: Icon(Icons.restaurant_menu, size: sizeTween.value),
+        );
+      },
+    );
   }
 
   Widget _buildEmailField() {
     return TextFormField(
+      key: ValueKey("emailField"),
       controller: viewModel.emailController,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
@@ -137,6 +129,7 @@ class _AuthViewState extends State<AuthView>
   Widget _buildPasswordField() {
     return Obx(
       () => TextFormField(
+        key: ValueKey("passwordField"),
         controller: viewModel.passwordController,
         obscureText: viewModel.obscurePassword,
         textInputAction: TextInputAction.done,
@@ -212,6 +205,7 @@ class _AuthViewState extends State<AuthView>
 
   Widget _buildSubmitButton() {
     return SizedBox(
+      key: ValueKey("submitButton"),
       height: 50,
       child: ElevatedButton(
         onPressed: viewModel.submit,
