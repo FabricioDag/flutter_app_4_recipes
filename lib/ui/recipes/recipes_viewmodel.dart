@@ -10,7 +10,6 @@ class RecipesViewModel extends GetxController {
   final RxBool _isLoading = false.obs;
   final RxString _errorMessage = ''.obs;
 
-  // Getters
   List<Recipe> get recipes => _recipes;
   bool get isLoading => _isLoading.value;
   String? get errorMessage => _errorMessage.value;
@@ -21,7 +20,8 @@ class RecipesViewModel extends GetxController {
       _errorMessage.value = '';
       _recipes.value = await _repository.getRecipes();
     } catch (e) {
-      _errorMessage.value = 'Falha ao buscar receitas: ${e.toString()}';
+      _errorMessage.value =
+          'Falha ao buscar receitas, viewModel: ${e.toString()}';
     } finally {
       _isLoading.value = false;
     }

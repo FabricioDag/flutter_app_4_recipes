@@ -1,4 +1,6 @@
 import 'package:app4_receitas/di/service_locator.dart';
+import 'package:app4_receitas/l10n/app_localizations.dart';
+import 'package:app4_receitas/utils/locale_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +19,8 @@ class _AuthViewState extends State<AuthView>
   late AnimationController _animationController;
   // late Animation<double> _animation; unnused
 
+  final localController = Get.find<LocaleController>();
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +38,7 @@ class _AuthViewState extends State<AuthView>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -45,7 +50,7 @@ class _AuthViewState extends State<AuthView>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildHeader(),
+                    _buildHeader(l10n),
                     const SizedBox(height: 32),
                     _buildEmailField(),
                     const SizedBox(height: 16),
@@ -72,13 +77,13 @@ class _AuthViewState extends State<AuthView>
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(l10n) {
     return Column(
       children: [
         _animatedLogo(controller: _animationController),
         const SizedBox(height: 16),
         Text(
-          'Eu Amo Cozinhar',
+          l10n.appTitle,
           style: GoogleFonts.dancingScript(
             fontSize: 48,
             fontWeight: FontWeight.bold,

@@ -22,7 +22,6 @@ class RecipeDetailViewModel extends GetxController {
       _isLoading.value = true;
       _errorMessage.value = '';
       _recipe.value = await _repository.getRecipeById(id);
-      // TODO: Como obter o userId do usuário atual?
       final userId = recipe!.userId;
       _isFavorite.value = await isRecipeFavorite(id, userId as String);
     } catch (e) {

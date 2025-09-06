@@ -1,9 +1,9 @@
 import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LocaleController extends GetxController {
-  final _locale = const Locale('pt', 'BR').obs;
+  final _locale = const Locale('en').obs;
 
   Locale get locale => _locale.value;
 

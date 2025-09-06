@@ -9,7 +9,6 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     // * Get.find
     // Usado para encontrar uma instância já injetada do GetX
     final theme = Get.find<CustomThemeController>();

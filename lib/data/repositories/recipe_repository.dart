@@ -10,7 +10,9 @@ class RecipeRepository {
       final rawData = await _service.fetchRecipes();
       return rawData.map((data) => Recipe.fromJson(data)).toList();
     } catch (e) {
-      throw Exception('Falha ao carregar receitas: ${e.toString()}');
+      throw Exception(
+        'Falha ao carregar receitas, from repository: ${e.toString()}',
+      );
     }
   }
 
